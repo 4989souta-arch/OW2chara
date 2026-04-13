@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>OW2 キャラ相性早見表</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #1a1a2e;
+      color: #ffffff;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #f5a623;
+    }
+    .search-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 8px;
+      width: 200px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    .card {
+      background-color: #16213e;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px auto;
+      max-width: 600px;
+    }
+    .card h2 {
+      color: #f5a623;
+      margin-bottom: 5px;
+    }
+    .good { color: #4caf50; }
+    .bad  { color: #f44336; }
+  </style>
+</head>
+<body>
+  <h1>⚔️ OW2 キャラ相性早見表</h1>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="キャラ名で検索..." oninput="filterCards()">
+  </div>
+  <div id="cards"></div>
+
+  <script>
+    const data = [
+      {
+        name: "トレーサー",
+        role: "ダメージ",
+        good: ["ウィドウメイカー", "アッシュ", "ハンゾー"],
+        bad: ["マクリー", "シンメトラ", "トールビョーン"]
+      },
+      {
+        name: "ラインハルト",
+        role: "タンク",
+        good: ["ファラ", "ゾンビャッタ", "エコー"],
+        bad: ["レッキングボール", "シグマ", "ドゥームフィスト"]
+      },
+      {
+        name: "アナ",
+        role: "サポート",
+        good: ["ゲンジ", "ファラ", "エコー"],
+        bad: ["トレーサー", "ゲンジ（接近）", "スーパージャンプ持ち"]
+      },
+      {
+        name: "ソジョーン",
+        role: "ダメージ",
+        good: ["タンク全般", "動きの遅いヒーロー"],
+        bad: ["ウィンストン", "ドゥームフィスト", "トレーサー"]
+      },
+      {
+        name: "ルシオ",
+        role: "サポート",
+        good: ["ファラ", "ウィドウメイカー", "アッシュ"],
+        bad: ["シンメトラ", "トールビョーン", "バスティオン"]
+      },
+      {
+        name: "キャスディ",
+        role: "ダメージ",
+        good: ["トレーサー", "ゲンジ", "エコー"],
+        bad: ["ラインハルト", "オリーサ", "シグマ"]
+      }
+    ];
+
+    function renderCards(list) {
+      const container = document.getElementById('cards');
+      container.innerHTML = '';
+      list.forEach(hero => {
+        container.innerHTML += `
+          <div class="card">
+            <h2>${hero.name} <span style="font-size:14px;color:#aaa;">（${hero.role}）</span></h2>
+            <p class="good">✅ 得意：${hero.good.join('、')}</p>
+            <p class="bad">❌ 苦手：${hero.bad.join('、')}</p>
+          </div>
+        `;
+      });
+    }
+
+    function filterCards() {
+      const query = document.getElementById('search').value;
+      const filtered = data.filter(h => h.name.includes(query));
+      renderCards(filtered);
+    }
+
+    renderCards(data);
+  </script>
+</body>
+</html>
